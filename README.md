@@ -106,6 +106,29 @@ docker rm task-api
 docker ps
 ```
 
+## 🐳 Run with Docker Compose
+
+### Start the application
+```bash
+docker-compose up -d
+```
+
+### View logs
+```bash
+docker-compose logs -f
+```
+
+### Stop the application
+```bash
+docker-compose down
+```
+
+### Rebuild after changes
+```bash
+docker-compose up --build
+```
+
+Visit: http://localhost:3000
 ## 📁 Project Structure
 ```
 task-manager-api/
