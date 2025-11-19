@@ -127,8 +127,30 @@ docker-compose down
 ```bash
 docker-compose up --build
 ```
+## 🚀 Services
 
-Visit: http://localhost:3000
+- **Node.js API**: REST API for task management
+- **Redis**: Caching layer for improved performance
+
+## 📊 Cache Strategy
+
+- Tasks are cached in Redis for 30 seconds
+- Cache is automatically invalidated on create/update/delete operations
+- Fallback to in-memory storage if Redis is unavailable
+
+## 🐳 Docker Compose
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+```
+
+Visit: http://localhost:5000
 ## 📁 Project Structure
 ```
 task-manager-api/

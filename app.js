@@ -1,10 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const redis = require('redis');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Redis Client Setup
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL || 'redis://localhost:6379'
+});
+
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.on('connect', () => console.log('✅ Connected to Redis'));
+
+// Connect to Redis
+(async () => {
+  await redisClient.connect();
+})();
 
 // Middleware
 app.use(cors());

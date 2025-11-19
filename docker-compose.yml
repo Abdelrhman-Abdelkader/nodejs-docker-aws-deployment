@@ -4,22 +4,38 @@ services:
   # Node.js Application
   app:
     build: .
-    container_name: nodejs-docker-aws-deployment
+    container_name: task-manager-app
     ports:
       - "5000:3000"
     environment:
       - PORT=3000
       - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
     restart: unless-stopped
     networks:
       - app-network
     volumes:
-     
       - app-logs:/app/logs
+    depends_on:
+      - redis
 
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: task-manager-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+  
 networks:
   app-network:
     driver: bridge
 
 volumes:
   app-logs:
+  redis-data:
